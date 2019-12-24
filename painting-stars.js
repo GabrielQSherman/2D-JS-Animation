@@ -68,7 +68,7 @@ function drawTri(p0, p1, p2) {
     context.moveTo(p0.x * scale, p0.y / scale);
     context.lineTo(p1.x * scale, p1.y * scale);
     context.lineTo(p2.x * scale, p2.y * scale);
-    context.fillStyle = 'hsl(' + (time * 3.3) + ', 100%, 60%)';
+    context.fillStyle = 'hsl(' + (time * 1.7) + ', 100%, 60%)';
     context.fill(); 
        
 } 
