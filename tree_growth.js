@@ -35,9 +35,9 @@ window.onload = () => {
         createLine(0,0,0,-length);
 
         ctx.translate(0, -length);
-        length *= .55 + time / 10000;
+        length *= .45 + time / 10000;
     
-        if(length > 10) { 
+        if(length > 5) { 
         ctx.save()
         ctx.rotate(angle)
         create_tree(angle, length); 
@@ -57,6 +57,7 @@ window.onload = () => {
     }
 
     //animate the tree
+    let angleDirection = true;
 
     render()
         function render() {
@@ -64,19 +65,28 @@ window.onload = () => {
             
             time++;
 
-            angle -= .001;
-           
-            // if (angle > Math.PI / 8) {
-            //     angle -= .02;
-            // } else if (angle < Math.PI / 2) {
-            //     angle += .02;
-            // }
+            console.log(angle);
+            
+            
+
+            if (angleDirection == true) {
+                angle -= .02;
+            } else {
+                angle += .02;
+            }
+
+            if (angle < Math.PI / 7) {
+                angleDirection = false;
+            } else if (angle > Math.PI / 1.3) {
+                angleDirection = true;
+            }
 
             // console.log(time)
 
             ctx.save()
-            create_tree(angle, 100 + time/10);
+            create_tree(angle, 100 + time/5);
             ctx.restore()
+            
            
             
             // return
