@@ -10,13 +10,17 @@ window.onload = function() {
 		width = canvas.width = window.innerWidth,
         height = canvas.height = window.innerHeight,
 
-        size = 20,                          //determins size of each square
-        columnLimit = ((width/size)) + 1, //how wide the grid is
-        columnCycles = 0,                         //handles if too many columns of squares have been made on a row
-        startWithWhite = true,              //switches from true to flase for each row to make sure the pattern is alike to a checker/chess board
+        size = 20,                           //determins size of each square
+        columnLimit = ((width/size) + 1),   //how many columns in the grid
+        rowLimit = ((height/size) + 2),    //how many rows in the grid
+        columnCycles = 0,                 //handles if too many columns of squares have been made on a row
+        rowsCycles = 0,                 //handles if too many rows of squares have been made on the grid
+        startWithWhite = true,           //switches from true to flase for each row to make sure the pattern is alike to a checker/chess board
 
 
-        p1 = {x: 0, y: 0}, p2 = {x: size, y: 0}, p3 = {x: size, y: size}, p4 = {x: 0, y: size},
+        originx = 0, originy = 0,
+
+        p1 = {x: originx, y: originy}, p2 = {x: size, y: originy}, p3 = {x: size, y: size}, p4 = {x: originx, y: size},
         squares = [];
 
         // console.log(lim);
@@ -30,7 +34,7 @@ window.onload = function() {
         animate()
         function animate() {
             
-            create_row()
+            create_grid()
             console.log('test');
             
             return
@@ -74,17 +78,32 @@ window.onload = function() {
         }
 
         function create_row(){
-            context.save()
+            
 
             while (columnCycles < columnLimit) {
                 create_square(p1,p2,p3,p4);
-                context.translate(size, 0);
+                context.translate(size, originy);
                 columnCycles++
             }
 
-            context.restore()
-
+            columnCycles = 0
             
+        }
+
+        function create_grid() {
+
+            context.save()
+
+            while (rowsCycles < rowLimit) {
+                context.save()
+                create_row()
+                context.restore()
+                context.translate(originx,size);
+                rowsCycles++
+            }
+
+
+            context.restore()
 
         }
 
